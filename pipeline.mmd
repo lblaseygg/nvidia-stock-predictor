@@ -1,0 +1,24 @@
+graph TD
+    A[Start Project] --> B[Load Historical NVIDIA Stock Data (CSV)]
+    B --> C[Preprocess Data (clean, format dates, remove nulls)]
+    C --> D[Feature Engineering (Lag features, MA5, MA10, etc.)]
+    D --> E[Scrape NVIDIA News Articles]
+    E --> F[Clean and Preprocess Text]
+    F --> G[Perform Sentiment Analysis (VADER/TextBlob)]
+    G --> H[Aggregate Daily Sentiment Scores]
+    H --> I[Merge Sentiment Scores with Stock Data by Date]
+    I --> J[Train Machine Learning Model]
+    J --> K{Choose Model Type}
+    
+    K --> L1[Linear Regression]
+    K --> L2[Random Forest / XGBoost]
+    K --> L3[LSTM (Time-Series Deep Learning)]
+
+    L1 --> M[Evaluate Model Performance]
+    L2 --> M
+    L3 --> M
+
+    M --> N[Visualize Predictions and Sentiment Trends]
+    N --> O[Deploy to Web App (Streamlit/Flask)]
+    O --> P[Schedule Automatic Updates (Scraper + Model Re-train)]
+    P --> Q[Done 🚀] 
