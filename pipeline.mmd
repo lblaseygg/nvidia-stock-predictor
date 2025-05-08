@@ -1,11 +1,11 @@
 flowchart TD
     A[Start Project] --> B[Fetch Historical NVIDIA Stock Data]
     B --> C[Preprocess & Clean Data]
-    C --> D[Feature Engineering<br/>(Technical Indicators, News Count)]
+    C --> D[Feature Engineering]
     D --> E[Scrape & Process NVIDIA News]
     E --> F[Aggregate Daily News Features]
     F --> G[Merge News & Stock Data]
-    G --> H[Train ML Model<br/>(Random Forest, etc.)]
+    G --> H[Train ML Model]
     H --> I[Evaluate Model Performance]
     I --> J[Save Trained Model]
     J --> K[Generate Trading Signals]
