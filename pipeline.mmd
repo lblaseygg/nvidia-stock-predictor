@@ -1,24 +1,15 @@
 flowchart TD
-    A[Start Project] --> B[Load Historical NVIDIA Stock Data]
-    B --> C[Preprocess Data]
-    C --> D[Feature Engineering]
-    D --> E[Scrape NVIDIA News Articles]
-    E --> F[Clean and Preprocess Text]
-    F --> G[Perform Sentiment Analysis]
-    G --> H[Aggregate Daily Sentiment Scores]
-    H --> I[Merge Sentiment Scores with Stock Data]
-    I --> J[Train Machine Learning Model]
-    J --> K{Choose Model Type}
-    
-    K --> L1[Linear Regression]
-    K --> L2[Random Forest / XGBoost]
-    K --> L3[LSTM]
-
-    L1 --> M[Evaluate Model Performance]
-    L2 --> M
-    L3 --> M
-
-    M --> N[Visualize Predictions]
-    N --> O[Deploy to Web App]
-    O --> P[Schedule Automatic Updates]
-    P --> Q[Done 🚀] 
+    A[Start Project] --> B[Fetch Historical NVIDIA Stock Data]
+    B --> C[Preprocess & Clean Data]
+    C --> D[Feature Engineering<br/>(Technical Indicators, News Count)]
+    D --> E[Scrape & Process NVIDIA News]
+    E --> F[Aggregate Daily News Features]
+    F --> G[Merge News & Stock Data]
+    G --> H[Train ML Model<br/>(Random Forest, etc.)]
+    H --> I[Evaluate Model Performance]
+    I --> J[Save Trained Model]
+    J --> K[Generate Trading Signals]
+    K --> L[Deploy Model & Signals to Web App]
+    L --> M[User Interacts with Dashboard]
+    M --> N[Schedule Automatic Data & Model Updates]
+    N --> O[Done 🚀] 
