@@ -1,112 +1,92 @@
-# NVIDIA Stock Price Predictor
+# Trendly
 
-A machine learning project that predicts NVIDIA stock prices using historical data and sentiment analysis from news articles.
-
-## Project Overview
-
-This project combines traditional stock price analysis with sentiment analysis from news articles to predict NVIDIA's stock price movements. The system uses multiple machine learning models and provides a web interface for visualization and predictions.
+Trendly is an AI-powered stock analysis platform that provides real-time insights and predictions for NVIDIA stock. The platform combines technical analysis, machine learning predictions, and real-time market data to help investors make informed decisions.
 
 ## Features
 
-- Historical stock data analysis
-- News article scraping and sentiment analysis
-- Multiple ML models (Linear Regression, Random Forest/XGBoost, LSTM)
-- Feature engineering with technical indicators
-- Web interface for visualization
-- Automated updates and model retraining
+- **Real-time Stock Data**: Live NVIDIA stock data with price updates and volume information
+- **Technical Analysis**: Comprehensive technical indicators including RSI, MACD, and more
+- **AI Predictions**: Machine learning-based price predictions with confidence levels
+- **Interactive Charts**: Dynamic visualization of stock data and predictions
+- **Responsive Design**: Modern, mobile-friendly interface
+
+## Tech Stack
+
+- **Backend**: Python, Flask
+- **Frontend**: HTML5, CSS3, JavaScript
+- **Data Analysis**: Pandas, NumPy
+- **Machine Learning**: scikit-learn
+- **Data Visualization**: Chart.js
+- **Stock Data**: yfinance
+- **Styling**: Custom CSS with modern design principles
+
+## Getting Started
+
+### Prerequisites
+
+- Python 3.11 or higher
+- pip (Python package manager)
+- Git
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/lblaseygg/trendly.git
+   cd trendly
+   ```
+
+2. Create and activate a virtual environment:
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate  # On Windows, use: venv\Scripts\activate
+   ```
+
+3. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. Create a `.env` file in the root directory with your configuration:
+   ```
+   FLASK_APP=run.py
+   FLASK_ENV=development
+   ```
+
+5. Run the application:
+   ```bash
+   python run.py
+   ```
+
+The application will be available at `http://127.0.0.1:5000`
 
 ## Project Structure
 
-```mermaid
-flowchart TD
-    A[Start Project] --> B[Load Historical NVIDIA Stock Data]
-    B --> C[Preprocess Data]
-    C --> D[Feature Engineering]
-    D --> E[Scrape NVIDIA News Articles]
-    E --> F[Clean and Preprocess Text]
-    F --> G[Perform Sentiment Analysis]
-    G --> H[Aggregate Daily Sentiment Scores]
-    H --> I[Merge Sentiment Scores with Stock Data]
-    I --> J[Train Machine Learning Model]
-    J --> K{Choose Model Type}
-    
-    K --> L1[Linear Regression]
-    K --> L2[Random Forest / XGBoost]
-    K --> L3[LSTM]
-
-    L1 --> M[Evaluate Model Performance]
-    L2 --> M
-    L3 --> M
-
-    M --> N[Visualize Predictions]
-    N --> O[Deploy to Web App]
-    O --> P[Schedule Automatic Updates]
-    P --> Q[Done 🚀]
 ```
-
-## Setup and Installation
-
-1. Clone the repository:
-```bash
-git clone https://github.com/yourusername/nvidia-stock-predictor.git
-cd nvidia-stock-predictor
+trendly/
+├── app/
+│   ├── models/         # ML models and data processing
+│   ├── static/         # CSS, JavaScript, and assets
+│   └── templates/      # HTML templates
+├── config.py           # Configuration settings
+├── requirements.txt    # Project dependencies
+└── run.py             # Application entry point
 ```
-
-2. Create and activate a virtual environment:
-```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-```
-
-3. Install dependencies:
-```bash
-pip install -r requirements.txt
-```
-
-## Usage
-
-1. Data Collection:
-   - Historical stock data will be automatically downloaded
-   - News articles will be scraped from configured sources
-
-2. Model Training:
-```bash
-python train_model.py
-```
-
-3. Run the Web Interface:
-```bash
-python app.py
-```
-
-## Model Details
-
-The project implements three different machine learning approaches:
-
-1. **Linear Regression**: Baseline model for price prediction
-2. **Random Forest/XGBoost**: Advanced ensemble methods for better accuracy
-3. **LSTM**: Deep learning approach for time series prediction
-
-## Data Sources
-
-- Historical stock data from Yahoo Finance
-- News articles from various financial news sources
-- Technical indicators calculated from price data
 
 ## Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-## Acknowledgments
-
-- VADER and TextBlob for sentiment analysis
-- Various financial data providers
-- Open source machine learning libraries
-
 ## Contact
 
-For questions or suggestions, please open an issue in the repository. 
+Luis Feliciano - [LinkedIn](https://www.linkedin.com/in/luisfernandofeliciano/)
+
+Project Link: [https://github.com/lblaseygg/trendly](https://github.com/lblaseygg/trendly) 
