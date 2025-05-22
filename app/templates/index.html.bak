@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NVIDIA Stock Predictor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Apple-inspired design system */
+        :root {
+            /* Dark theme variables (default) */
+            --bg-primary: #0d1117;
+            --bg-secondary: rgba(22, 27, 34, 0.7);
+            --text-primary: #c9d1d9;
+            --text-secondary: #8b949e;
+            --accent-primary: #58a6ff;
+            --accent-secondary: #238636;
+            
+        }
+        .update-frequency {
+            font-size: 0.95rem;
+            color: #86868b;
+            font-weight: 400;
+            margin-left: 0.75em;
+            letter-spacing: 0.01em;
+        }
+    </style>
+    <script>
+        // Immediate scroll reset
+        window.scrollTo(0, 0);
+        if (window.location.hash) {
+            history.pushState("", document.title, window.location.pathname + window.location.search);
+        }
+    </script>
+</head>
+<body>
+    <script>
+        // Force scroll to top immediately before anything else loads
+        window.scrollTo(0, 0);
+    </script>
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-content">
+                <h1 class="hero-title">TRENDLY</h1>
+                <p class="hero-subtitle">AI-Powered Stock Predictions</p>
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <span class="stat-value" id="heroCurrentPrice">$0.00</span>
+                        <span class="stat-label">Current Price</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="stat-value" id="heroPriceChange">0.00%</span>
+                        <span class="stat-label">24h Change</span>
+                    </div>
+                </div>
+                <div class="hero-actions">
+                    <button id="heroRefreshBtn" class="hero-refresh-button" title="Refresh Data">
+                        <i class="fas fa-sync-alt"></i>
+                        Refresh Data
+                    </button>
+                </div>
+            </div>
+            <div class="scroll-indicator" id="scrollIndicator">
+                <span>Scroll to explore</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </section>
+
+        <!-- Main Content -->
+        <main class="main-content" id="main-content">
+            <nav class="navbar">
+                <div class="nav-brand">
+                    <div class="brand-logo">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="brand-text">
+                        <div class="stock-selector">
+                            <button class="stock-button">
+                                <h2>NVIDIA</h2>
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div class="stock-dropdown">
+                                <div class="stock-option active">
+                                    <span class="stock-symbol">NVDA</span>
+                                    <span class="stock-name">NVIDIA</span>
+                                </div>
+                                <div class="stock-option disabled">
+                                    <span class="stock-symbol">TSLA</span>
+                                    <span class="stock-name">Tesla</span>
+                                    <span class="coming-soon-label">Coming Soon</span>
+                                </div>
+                                <div class="stock-option disabled">
+                                    <span class="stock-symbol">AAPL</span>
+                                    <span class="stock-name">Apple</span>
+                                    <span class="coming-soon-label">Coming Soon</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-content">
+                    <div class="nav-stats">
+                        <div class="stat-item">
+                            <span class="stat-label">Current Price</span>
+                            <span class="stat-value" id="navCurrentPrice">$0.00</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">24h Change</span>
+                            <span class="stat-value" id="navPriceChange">0.00%</span>
+                        </div>
+                    </div>
+                    <div class="nav-actions">
+                        <button id="refreshBtn" class="refresh-button" title="Refresh Data">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                        <button class="theme-toggle" title="Toggle Theme">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="content-grid">
+                <section class="chart-section">
+                    <div class="section-header">
+                        <div class="header-content">
+                            <h2>Performance</h2>
+                            <span class="update-frequency">• updates every 5 min</span>
+                        </div>
+                        <div class="header-actions">
+                            <p class="last-updated">Last Updated: <span id="lastUpdated">Loading...</span></p>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="stockChart"></canvas>
+                    </div>
+                </section>
+
+                <section class="insights-section">
+                    <div class="section-header">
+                        <div class="header-content">
+                            <h2>Market Insights</h2>
+                            <div class="live-badge">
+                                <span class="pulse"></span>
+                                Live Analysis
+                            </div>
+                        </div>
+                    </div>
+                    <div class="insights-grid">
+                        <div class="insight-card">
+                            <div class="insight-header">
+                                <h3>Technical Analysis</h3>
+                                <span class="timestamp">Updated: <span id="analysisTime">Loading...</span></span>
+                            </div>
+                            <div class="insight-content">
+                                <div class="insight-item">
+                                    <span class="label">Current Price</span>
+                                    <span class="value" id="currentPrice">$0.00</span>
+                                </div>
+                                <div class="insight-item">
+                                    <span class="label">Signal Strength</span>
+                                    <span class="value" id="signalStrength">0%</span>
+                                </div>
+                                <div class="insight-item">
+                                    <span class="label">RSI</span>
+                                    <span class="value" id="rsi">0</span>
+                                </div>
+                                <div class="insight-item">
+                                    <span class="label">MACD</span>
+                                    <span class="value" id="macd">0</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="insight-card">
+                            <div class="insight-header">
+                                <h3>AI Prediction</h3>
+                                <span class="timestamp">Updated: <span id="predictionTime">Loading...</span></span>
+                            </div>
+                            <div class="insight-content">
+                                <div class="insight-item">
+                                    <span class="label">Recommendation</span>
+                                    <span class="value" id="recommendation">N/A</span>
+                                </div>
+                                <div class="insight-item">
+                                    <span class="label">Confidence</span>
+                                    <span class="value" id="confidence">N/A</span>
+                                </div>
+                                <div class="insight-item">
+                                    <span class="label">Predicted Price</span>
+                                    <span class="value" id="predictedPrice">$0.00</span>
+                                </div>
+                                <div class="insight-item">
+                                    <span class="label">Predicted Change</span>
+                                    <span class="value" id="predictedChange">0%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <footer>
+            <div class="footer-content">
+                <div class="footer-grid">
+                    <div class="footer-column">
+                        <h3>About</h3>
+                        <p>TRENDLY is an AI-powered stock analysis platform that delivers real-time market insights, technical analysis, and data-driven predictions. Designed for investors who appreciate clean design and powerful analytics.</p>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Connect</h3>
+                        <p>Email: <a href="mailto:hello@trendly.io">hello@trendly.io</a></p>
+                        <div class="social-links">
+                            <a href="#" class="social-link" title="Twitter"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="social-link" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#" class="social-link" title="GitHub"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <span class="copyright">&copy; 2024 Trendly. All rights reserved.</span>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{ url_for('static', filename='js/chart.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/trading.js') }}"></script>
+</body>
+</html> 
